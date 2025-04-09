@@ -1,1 +1,3 @@
-echo "flask\nyfinance\nflask-cors" > requirements.txt
+flask
+yfinance
+flask-cors
