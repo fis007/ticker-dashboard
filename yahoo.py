@@ -1,4 +1,3 @@
-# yahoo.py
 import os
 from flask import Flask, jsonify
 import yfinance as yf
@@ -59,3 +58,24 @@ def fetch_ticker_data(ticker):
 
         return {
             "daysAbove": days_above,
+            "weeksAbove": weeks_above
+        }
+    except Exception as e:
+        logger.error(f"Error fetching data for {ticker}: {str(e)}", exc_info=True)
+        return {"error": f"Server error: {str(e)}"}
+
+@app.route('/api/ticker/<ticker_name>', methods=['GET'])
+def get_ticker_data(ticker_name):
+    logger.debug(f"Received request for ticker: {ticker_name}")
+    ticker_symbol = TICKERS.get(ticker_name, ticker_name)
+    data = fetch_ticker_data(ticker_symbol)
+    return jsonify(data)
+
+@app.route('/test', methods=['GET'])
+def test_endpoint():
+    logger.debug("Test endpoint accessed")
+    return jsonify({"message": "Backend is running"}), 200
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 3000))
+    app.run(host='0.0.0.0', port=port, debug=True)
