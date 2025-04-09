@@ -8,8 +8,8 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# Replace with your actual Netlify URL
-CORS(app, resources={r"/api/*": {"origins": ["https://your-site-name.netlify.app", "http://localhost:5173"]}})
+# Allow your Netlify domain
+CORS(app, resources={r"/api/*": {"origins": ["https://fanciful-medovik-f2b3bc.netlify.app", "http://localhost:5173"]}})
 
 TICKERS = {
     "SPX": "^GSPC", "DJI": "^DJI", "NDX": "^NDX", "IWM": "IWM", "DAX": "^GDAXI",
