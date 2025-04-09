@@ -1,4 +1,4 @@
-# yahoo.py (update the bottom)
+# yahoo.py
 import os
 from flask import Flask, jsonify
 import yfinance as yf
@@ -9,8 +9,8 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# Allow CORS for your Netlify frontend (update later with actual URL)
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5173", "https://your-site-name.netlify.app"]}})
+# Replace with your actual Netlify URL
+CORS(app, resources={r"/api/*": {"origins": ["https://your-site-name.netlify.app", "http://localhost:5173"]}})
 
 TICKERS = {
     "SPX": "^GSPC", "DJI": "^DJI", "NDX": "^NDX", "IWM": "IWM", "DAX": "^GDAXI",
@@ -26,6 +26,7 @@ def fetch_ticker_data(ticker):
     try:
         logger.debug(f"Fetching data for ticker: {ticker}")
         asset = yf.Ticker(ticker)
+        
         hist_daily = asset.history(period="1mo", interval="1d")
         if hist_daily.empty or len(hist_daily) < 21:
             logger.warning(f"Not enough daily data for {ticker}: {len(hist_daily)} days")
@@ -58,24 +59,3 @@ def fetch_ticker_data(ticker):
 
         return {
             "daysAbove": days_above,
-            "weeksAbove": weeks_above
-        }
-    except Exception as e:
-        logger.error(f"Error fetching data for {ticker}: {str(e)}", exc_info=True)
-        return {"error": f"Server error: {str(e)}"}
-
-@app.route('/api/ticker/<ticker_name>', methods=['GET'])
-def get_ticker_data(ticker_name):
-    logger.debug(f"Received request for ticker: {ticker_name}")
-    ticker_symbol = TICKERS.get(ticker_name, ticker_name)
-    data = fetch_ticker_data(ticker_symbol)
-    return jsonify(data)
-
-@app.route('/test', methods=['GET'])
-def test_endpoint():
-    logger.debug("Test endpoint accessed")
-    return jsonify({"message": "Backend is running"}), 200
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 3000))  # Use Render's PORT env var
-    app.run(host='0.0.0.0', port=port, debug=True)

@@ -1,0 +1,118 @@
+/* src/App.css */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  width: 100%;
+  padding: 1rem;
+}
+
+.app {
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+input,
+button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+input {
+  flex: 1;
+  max-width: 180px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.ticker-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+}
+
+.ticker-table th,
+.ticker-table td {
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+.ticker-table th {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: bold;
+}
+
+.ticker-table td {
+  color: #333;
+}
+
+.ticker-table td.positive {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.ticker-table td.negative {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.ticker-table td.neutral {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.table-container {
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: #dc3545;
+  margin: 1rem 0;
+}
